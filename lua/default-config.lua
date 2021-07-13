@@ -7,6 +7,7 @@ USER = vim.fn.expand "$USER"
 O = {
   leader_key = "space",
   colorscheme = "spacegray",
+  line_wrap_cursor_movement = true,
   transparent_window = false,
   format_on_save = true,
   vnsip_dir = vim.fn.stdpath "config" .. "/snippets",
@@ -54,6 +55,8 @@ O = {
     scrolloff = 8, -- is one of my fav
   },
 
+  plugin = {},
+
   -- TODO: refactor for tree
   auto_close_tree = 0,
   nvim_tree_disable_netrw = 0,
@@ -64,17 +67,6 @@ O = {
   },
 
   database = { save_location = "~/.config/lunarvim_db", auto_execute = 1 },
-
-  plugin = {
-    -- Builtins
-    diffview = { active = false },
-    ts_hintobjects = { active = false },
-    ts_textobjects = { active = false },
-    ts_textsubjects = { active = false },
-    telescope_project = { active = false },
-    indent_line = { active = false },
-    lush = { active = false },
-  },
 
   -- TODO: just using mappings (leader mappings)
   user_which_key = {},
@@ -148,7 +140,10 @@ O = {
       },
     },
     kotlin = {},
-    latex = {},
+    latex = {
+      auto_save = false,
+      ignore_errors = {},
+    },
     lua = {
       diagnostics = {
         virtual_text = { spacing = 0, prefix = "" },
@@ -157,7 +152,7 @@ O = {
       },
       formatter = {
         exe = "stylua",
-        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
+        args = {},
         stdin = false,
       },
     },
@@ -183,6 +178,7 @@ O = {
       },
     },
     python = {
+      -- @usage can be flake8 or yapf
       linter = "",
       isort = false,
       diagnostics = {
@@ -218,9 +214,10 @@ O = {
         parameter_hints_prefix = "<-",
         other_hints_prefix = "=>", -- prefix for all the other hints (type, chaining)
       },
+      -- @usage can be clippy
       formatter = {
         exe = "rustfmt",
-        args = { "--emit=stdout" },
+        args = { "--emit=stdout", "--edition=2018" },
       },
       linter = "",
       diagnostics = {
@@ -258,12 +255,13 @@ O = {
       },
       formatter = {
         exe = "prettier",
-        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+        args = { "--write", "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+        stdin = false,
       },
     },
     terraform = {},
     tsserver = {
-      -- @usage can be 'eslint'
+      -- @usage can be 'eslint' or 'eslint_d'
       linter = "",
       diagnostics = {
         virtual_text = { spacing = 0, prefix = "" },
@@ -272,7 +270,8 @@ O = {
       },
       formatter = {
         exe = "prettier",
-        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+        args = { "--write", "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+        stdin = false,
       },
     },
     vim = {},
@@ -285,14 +284,13 @@ O = {
   },
 }
 
-require "lv-zen.config"
-require "lv-compe.config"
-require "lv-dashboard.config"
-require "lv-floatterm.config"
-require "lv-galaxyline.config"
-require "lv-gitsigns.config"
-require "lv-telescope.config"
-require "lv-floatterm.config"
-require "lv-dap.config"
-require "lv-which-key.config"
-require "lv-treesitter.config"
+require "core.status_colors"
+require("core.gitsigns").config()
+require("core.compe").config()
+require("core.dashboard").config()
+require("core.dap").config()
+require("core.floatterm").config()
+require("core.zen").config()
+require("core.telescope").config()
+require("core.treesitter").config()
+require("core.which-key").config()
