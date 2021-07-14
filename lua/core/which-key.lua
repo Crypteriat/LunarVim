@@ -68,7 +68,6 @@ M.config = function()
       ["e"] = { "<cmd>lua require'core.nvimtree'.toggle_tree()<CR>", "Explorer" },
       ["f"] = { "<cmd>Telescope find_files<CR>", "Find File" },
       ["h"] = { '<cmd>let @/=""<CR>', "No Highlight" },
-      [";"] = { "<cmd>Dashboard<CR>", "Dashboard" },
       p = {
         name = "Packer",
         c = { "<cmd>PackerCompile<cr>", "Compile" },
@@ -185,13 +184,11 @@ M.setup = function()
     mappings["z"] = "Zen"
   end
 
-  for k, v in pairs(O.user_which_key) do
-    mappings[k] = v
-  end
-
   local wk = require "which-key"
+
   wk.register(mappings, opts)
   wk.register(vmappings, vopts)
+  wk.register(O.user_which_key, opts)
 end
 
 return M

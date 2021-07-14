@@ -10,7 +10,7 @@ O = {
   line_wrap_cursor_movement = true,
   transparent_window = false,
   format_on_save = true,
-  vnsip_dir = vim.fn.stdpath "config" .. "/snippets",
+  vsnip_dir = vim.fn.stdpath "config" .. "/snippets",
 
   default_options = {
     backup = false, -- creates a backup file
@@ -132,6 +132,10 @@ O = {
       java_tools = {
         active = false,
       },
+      formatter = {
+        exe = "prettier",
+        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+      },
     },
     json = {
       diagnostics = {
@@ -146,6 +150,35 @@ O = {
     },
     kotlin = {},
     latex = {
+      filetypes = { "tex", "bib"},
+      aux_directory = nil,
+      bibtex_formatter = "texlab",
+      diagnostics_delay = 300,
+      formatter_line_length = 80,
+      latex_formatter = "latexindent",
+      build = {
+        executable = "latexmk",
+        args = {'-pdf', '-interaction=nonstopmode', '-synctex=1', '%f'},
+        on_save = false,
+        forward_search_after = false,
+      },
+      chktex = {
+        on_open_and_save = false,
+        on_edit = false,
+      },
+      forward_search = {
+        executable = nil,
+        args = {}
+      },
+      latexindent = {
+        ["local"] = nil,
+        modify_line_breaks = false
+      },
+      diagnostics = {
+        virtual_text = {spacing = 0, prefix = ""},
+        signs = true,
+        underline = true,
+      },
       auto_save = false,
       ignore_errors = {},
     },
@@ -258,13 +291,14 @@ O = {
         "typescript",
         "typescriptreact",
       },
+    },
+    terraform = {
       formatter = {
-        exe = "prettier",
-        args = { "--write", "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+        exe = "terraform",
+        args = { "fmt" },
         stdin = false,
       },
     },
-    terraform = {},
     tsserver = {
       -- @usage can be 'eslint' or 'eslint_d'
       linter = "",
@@ -275,8 +309,7 @@ O = {
       },
       formatter = {
         exe = "prettier",
-        args = { "--write", "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-        stdin = false,
+        args = {},
       },
     },
     vim = {},
