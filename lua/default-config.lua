@@ -10,6 +10,7 @@ O = {
   line_wrap_cursor_movement = true,
   transparent_window = false,
   format_on_save = true,
+  lint_on_save = true,
   vsnip_dir = vim.fn.stdpath "config" .. "/snippets",
 
   default_options = {
@@ -66,9 +67,30 @@ O = {
       },
       signs = true,
       underline = true,
-      document_highlight = true,
-      popup_border = "single",
     },
+    document_highlight = true,
+    popup_border = "single",
+  },
+
+  disabled_built_ins = {
+    "netrw",
+    "netrwPlugin",
+    "netrwSettings",
+    "netrwFileHandlers",
+    "gzip",
+    "zip",
+    "zipPlugin",
+    "tar",
+    "tarPlugin", -- 'man',
+    "getscript",
+    "getscriptPlugin",
+    "vimball",
+    "vimballPlugin",
+    "2html_plugin",
+    "logipat",
+    "rrhelper",
+    "spellfile_plugin",
+    -- 'matchit', 'matchparen', 'shada_plugin',
   },
 
   plugin = {},
@@ -137,6 +159,7 @@ require("core.zen").config()
 require("core.telescope").config()
 require("core.treesitter").config()
 require("core.which-key").config()
+require("core.nvimtree").config()
 
 require("lang.clang").config()
 require("lang.cmake").config()
@@ -156,6 +179,7 @@ require("lang.php").config()
 require("lang.python").config()
 require("lang.ruby").config()
 require("lang.rust").config()
+require("lang.scala").config()
 require("lang.sh").config()
 require("lang.terraform").config()
 require("lang.tex").config()

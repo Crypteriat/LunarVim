@@ -22,5 +22,11 @@ lv-settings.lua
 .stylua.toml
 lua/lv-user/
 lua/lv-user-config/
+
 colors/neon-custom.vim
-plugged/
+
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
