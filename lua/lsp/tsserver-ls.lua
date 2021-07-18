@@ -11,9 +11,13 @@ O.formatters.filetype["javascriptreact"] = {
   function()
     local args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) }
     local extend_args = O.lang.tsserver.formatter.args
-    for i = 1, #extend_args do
-      table.insert(args, extend_args[i])
+
+    if extend_args then
+      for i = 1, #extend_args do
+        table.insert(args, extend_args[i])
+      end
     end
+
     return {
       exe = prettier_instance,
       args = args,
@@ -57,9 +61,8 @@ require("lspconfig").tsserver.setup {
     "typescript.tsx",
   },
   on_attach = require("lsp").tsserver_on_attach,
-  -- This makes sure tsserver is not used for formatting (I prefer prettier)
   -- on_attach = require'lsp'.common_on_attach,
-  root_dir = require("lspconfig/util").root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+  -- This makes sure tsserver is not used for formatting (I prefer prettier)
   settings = { documentFormatting = false },
   handlers = {
     -- ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -70,4 +73,5 @@ require("lspconfig").tsserver.setup {
     -- }),
   },
 }
+
 require("lsp.ts-fmt-lint").setup()
