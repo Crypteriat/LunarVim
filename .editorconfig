@@ -1,0 +1,15 @@
+;.editorconfig
+[*]
+root = true
+end_of_line = lf
+max_char = 78
+
+[**.json]
+indent_style = space
+indent_size = 4
+
+
+[**.lua]
+indent_style = space
+indent_size = 4
+quote_type = double
